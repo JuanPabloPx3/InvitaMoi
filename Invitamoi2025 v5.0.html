@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moi Valentín</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; 
+        background: pink url('https://img.freepik.com/vector-gratis/fondo-acuarela-flores-borde-rosa-rosa-vector-diseno-vintage_53876-156556.jpg?t=st=1739165151~exp=1739168751~hmac=135e6fe40107026f0d5bbbc42e6dddd4624cae97bb5ca050382890f495db4d00&w=1480');}
+        .hidden { display: none; }
+        #moi { font-size: 30px; font-weight: bold; color:rgb(65, 208, 167); margin-top: 60px; }
+        #game-container { margin-top: 50px; }
+        .button { padding: 10px 20px; font-size: 18px; cursor: pointer; position: absolute; }
+        #laberinto { border: 2px solid black; width: 400px; height: 300px; position: relative; margin: 20px auto; overflow: hidden; }
+        .wall { position: absolute; background: black; }
+        .enemy { position: absolute; background: red; width: 20px; height: 20px; border-radius: 50%; }
+        #corazon { font-size: 40px; cursor: pointer; position: absolute; }
+        canvas { background: black; display: block; margin: auto; }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: float 1s linear infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: red; text-shadow: 2px 2px white;">MOI VALENTÍN</h1>
+    <div id="game-container">
+        <div id="nivel1">
+            <p>Esta invitación es única e intransferible y de continuar confirmas ser mi Moi. Para proceder por favor atrapa el corazón rojo.</p>
+            <span id="corazon">❤️</span>
+        </div>
+        
+        <div id="nivel2" class="hidden">
+            <p>Ya que eres una experta en tours, ¿podrás partir con el mouse desde el inicio y llegar a la cita con Moi, sin chocarte?</p>
+            <div id="laberinto">
+                
+                <!– Bordes -->
+                <div class="wall" style="top: 0px; left: 0px; width: 400px; height: 10px;"></div>
+                <div class="wall" style="top: 290px; left: 0px; width: 400px; height: 10px;"></div>
+                <div class="wall" style="top: 0px; left: 395px; width: 10px; height: 300px;"></div>
+                
+                <!– Horizontales -->
+                <div class="wall" style="top: 25px; left: 75px; width: 50px; height: 10px;"></div>
+                <div class="wall" style="top: 25px; left: 175px; width: 50px; height: 10px;"></div>
+                <div class="wall" style="top: 50px; left: 50px; width: 25px; height: 10px;"></div>
+                <div class="wall" style="top: 50px; left: 100px; width: 100px; height: 10px;"></div>
+                <div class="wall" style="top: 50px; left: 275px; width: 100px; height: 10px;"></div>
+                <div class="wall" style="top: 75px; left: 75px; width: 60px; height: 10px;"></div>
+                <div class="wall" style="top: 75px; left: 175px; width: 60px; height: 10px;"></div>
+                <div class="wall" style="top: 95px; left: 125px; width: 60px; height: 10px;"></div>
+                <div class="wall" style="top: 110px; left: 350px; width: 60px; height: 10px;"></div>
+                <div class="wall" style="top: 175px; left: 50px; width: 300px; height: 10px;"></div>
+                <!– ZigZag -->
+                <div class="wall" style="top: 50px; left: 15px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 75px; left: 0px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 100px; left: 15px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 125px; left: 0px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 150px; left: 15px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 175px; left: 0px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 200px; left: 15px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 225px; left: 0px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 250px; left: 15px; width: 35px; height: 10px;"></div>
+                <div class="wall" style="top: 275px; left: 0px; width: 35px; height: 10px;"></div>
+
+                <!– Verticales -->
+                <div class="wall" style="top: 50px; left: 50px; width: 10px; height: 225px;"></div>
+                <div class="wall" style="top: 25px; left: 75px; width: 10px; height: 35px;"></div>
+                <div class="wall" style="top: 75px; left: 75px; width: 10px; height: 85px;"></div>
+                <div class="wall" style="top: 200px; left: 75px; width: 10px; height: 90px;"></div>
+                <div class="wall" style="top: 100px; left: 100px; width: 10px; height: 145px;"></div>
+                <div class="wall" style="top: 0px; left: 150px; width: 10px; height: 150px;"></div>
+                <div class="wall" style="top: 225px; left: 150px; width: 10px; height: 70px;"></div>
+                <div class="wall" style="top: 75px; left: 200px; width: 10px; height: 175px;"></div>
+                <div class="wall" style="top: 25px; left: 225px; width: 10px; height: 50px;"></div>
+                <div class="wall" style="top: 0px; left: 250px; width: 10px; height: 150px;"></div>
+                <div class="wall" style="top: 225px; left: 250px; width: 10px; height: 70px;"></div>
+                <div class="wall" style="top: 50px; left: 300px; width: 10px; height: 195px;"></div>
+                <div class="wall" style="top: 225px; left: 350px; width: 10px; height: 70px;"></div>
+                
+                <div class="enemy" style="top: 50px; left: 200px;"></div>
+                <div class="enemy" style="top: 200px; left: 250px;"></div>
+                <div class="enemy" style="top: 150px; left: 300px;"></div>
+                <p id="inicio" style="position:absolute; top:5px; left:5px;">🚦 Inicio</p>
+                <p id="meta" style="position:absolute; bottom:5px; right:5px;">🏁</p>
+            </div>
+        </div>
+        
+        <div id="nivel3" class="hidden">
+            <p>Has llegado! Y ahora la pregunta más importante...  ¿Quieres ser mi Moi Valentín? 👉🏻👈🏻</q></p>
+            <button id="escurridizo" class="button">No</button>
+            <button id="botonSi" class="button">Sí</button>
+        </div>
+        
+        <div id="tetris-container" class="hidden">
+            <h2>¡Ahora demuestra tu destreza en Tetris!</h2>
+        </div>
+        <div id="final" class="hidden">
+            <h2 id="mensaje-final">¡Gracias por aceptar ser mi Moi Valentín 🥰💘!</h2>
+            <canvas id="tetris" width="400" height="400"></canvas>
+                <script>
+                    let gameStarted = false;
+                    const canvas = document.getElementById("tetris");
+                    const context = canvas.getContext("2d");
+                    context.scale(20, 20);
+
+                    const pieces = [
+                        { shape: [[1, 1, 1, 1]], color: 'cyan' }, // I
+                        { shape: [[1, 1], [1, 1]], color: 'yellow' }, // O
+                        { shape: [[0, 1, 1], [1, 1, 0]], color: 'green' }, // S
+                        { shape: [[1, 1, 0], [0, 1, 1]], color: 'red' }, // Z
+                        { shape: [[1, 1, 1], [0, 1, 0]], color: 'purple' }, // T
+                        { shape: [[1, 1, 1], [1, 0, 0]], color: 'orange' }, // L
+                        { shape: [[1, 1, 1], [0, 0, 1]], color: 'blue' } // J
+                    ];
+
+                    function getRandomPiece() {
+                        const piece = pieces[Math.floor(Math.random() * pieces.length)];
+                        return { matrix: piece.shape, color: piece.color, pos: { x: 8, y: 0 } };
+                    }
+
+                    const arena = createMatrix(20, 20);
+                    let dropCounter = 0;
+                    let lastTime = 0;
+                    let gameWon = false;
+                    let player = getRandomPiece();
+
+                    function createMatrix(w, h) {
+                        return Array.from({ length: h }, () => new Array(w).fill(0));
+                    }
+
+                    function drawMatrix(matrix, offset, color) {
+                        context.fillStyle = color;
+                        matrix.forEach((row, y) => {
+                            row.forEach((value, x) => {
+                                if (value !== 0) {
+                                    context.fillRect(x + offset.x, y + offset.y, 1, 1);
+                                }
+                            });
+                        });
+                    }
+
+                    function drawGuidelines() {
+                        const guide = [
+                            [0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0,],
+                            [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0,],
+                            [0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0,],
+                            [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0,],
+                            [0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0,],
+                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+                            [1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1,],
+                            [1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1,],
+                            [1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,],
+                            [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1,],
+                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],
+                            [0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0,],
+                            [0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0,],
+                            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,],
+                            [0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0 ]
+                        ];
+                        context.fillStyle = "rgba(255, 255, 255, 0.2)";
+                        guide.forEach((row, y) => {
+                            row.forEach((value, x) => {
+                                if (value !== 0) {
+                                    context.fillRect(x + 3, y + 2, 1, 1);
+                                }
+                            });
+                        });
+                    }
+
+                    function checkWin() {
+                        if (arena[17].slice(5, 14).join('') === '00000110000' &&
+                            arena[18].slice(5, 14).join('') === '00000100000' &&
+                            arena[19].slice(5, 14).join('') === '00000100000') {
+                            gameWon = true;
+                            for (let i = 0; i < 100; i++) {
+                                setTimeout(() => {
+                                    const x = Math.random() * canvas.width;
+                                    const y = Math.random() * canvas.height;
+                                    context.fillStyle = "red";
+                                    context.fillText("❤️", x / 20, y / 20);
+                                }, i * 50);
+                            }
+                        }
+                    }
+
+                    function draw() {
+                        context.fillStyle = "black";
+                        context.fillRect(0, 0, canvas.width, canvas.height);
+                        drawGuidelines();
+                        drawMatrix(arena, { x: 0, y: 0 }, 'gray');
+                        drawMatrix(player.matrix, player.pos, player.color);
+                    }
+
+                    function collide(arena, player) {
+                        return player.matrix.some((row, y) => 
+                            row.some((value, x) => 
+                                value !== 0 && (arena[y + player.pos.y] && arena[y + player.pos.y][x + player.pos.x]) !== 0));
+                    }
+
+                    function rotate(matrix) {
+                        return matrix[0].map((_, i) => matrix.map(row => row[i])).reverse();
+                    }
+
+                    function drop() {
+                        if (gameWon) return;
+                        player.pos.y++;
+                        if (collide(arena, player)) {
+                            player.pos.y--;
+                            merge(arena, player);
+                            checkWin();
+                            player = getRandomPiece();
+                        }
+                        dropCounter = 0;
+                    }
+
+                    function merge(arena, player) {
+                        player.matrix.forEach((row, y) => {
+                            row.forEach((value, x) => {
+                                if (value !== 0) {
+                                    arena[y + player.pos.y][x + player.pos.x] = 1;
+                                }
+                            });
+                        });
+                    }
+
+                    function update(time = 0) {
+                        const deltaTime = time - lastTime;
+                        lastTime = time;
+                        dropCounter += deltaTime;
+                        if (dropCounter > 1000) {
+                            drop();
+                        }
+                        draw();
+                        if (!gameWon) {
+                            requestAnimationFrame(update);
+                        }
+                    }
+
+                    document.addEventListener("keydown", event => {
+                        if (event.keyCode === 37) {
+                            player.pos.x--;
+                            if (collide(arena, player)) player.pos.x++;
+                        } else if (event.keyCode === 39) {
+                            player.pos.x++;
+                            if (collide(arena, player)) player.pos.x--;
+                        } else if (event.keyCode === 40) {
+                            drop();
+                        } else if (event.keyCode === 38 || event.keyCode === 32) {
+                            const rotated = rotate(player.matrix);
+                            const oldMatrix = player.matrix;
+                            player.matrix = rotated;
+                            if (collide(arena, player)) player.matrix = oldMatrix;
+                        }
+                    });
+                    function startTetris() {
+                        if (!gameStarted) {
+                            gameStarted = true;
+                            update();
+                        }
+                    }
+                    function createHeart() {
+                        const heart = document.createElement("div");
+                        heart.classList.add("heart");
+                        heart.innerHTML = "❤️";
+                        document.body.appendChild(heart);
+                        
+                        let x = Math.random() * window.innerWidth;
+                        let size = Math.random() * 20 + 10;
+                        let duration = Math.random() * 50 + 50;
+                        
+                        heart.style.left = `${x}px`;
+                        heart.style.fontSize = `${size}px`;
+                        heart.style.animationDuration = `${duration}s`;
+                        
+                        setTimeout(() => {
+                            heart.remove();
+                        }, duration * 500);
+                    }
+        
+                    setInterval(createHeart, 7000);
+                </script>
+        </div>
+    </div>
+    <p id="moi"></p>
+
+    <script>
+        let moiText = "";
+        function actualizarMoi(letra) {
+            moiText += letra;
+            document.getElementById("moi").textContent = moiText;
+        }
+
+        let corazon = document.getElementById("corazon");
+        function moverCorazon() {
+            corazon.style.position = "absolute";
+            corazon.style.top = Math.random() * (window.innerHeight - 50) + "px";
+            corazon.style.left = Math.random() * (window.innerWidth - 50) + "px";
+        }
+        setInterval(moverCorazon, 1000);
+        corazon.addEventListener("click", function() {
+            document.getElementById("nivel1").classList.add("hidden");
+            document.getElementById("nivel2").classList.remove("hidden");
+            actualizarMoi("M");
+        });
+
+        let inicio = document.getElementById("inicio");
+        let meta = document.getElementById("meta");
+        let walls = document.querySelectorAll(".wall");
+        let enemies = document.querySelectorAll(".enemy");
+        let enLaberinto = false;
+
+        inicio.addEventListener("mouseenter", () => enLaberinto = true);
+        walls.forEach(wall => wall.addEventListener("mouseenter", () => enLaberinto = false));
+        enemies.forEach(enemy => enemy.addEventListener("mouseenter", () => enLaberinto = false));
+        
+        meta.addEventListener("mouseenter", function() {
+            if (enLaberinto) {
+                document.getElementById("nivel2").classList.add("hidden");
+                document.getElementById("nivel3").classList.remove("hidden");
+                actualizarMoi("O");
+            }
+        });
+
+        function moverEnemigos() {
+            enemies.forEach(enemy => {
+                enemy.style.top = Math.random() * 280 + "px";
+                enemy.style.left = Math.random() * 380 + "px";
+            });
+        }
+        setInterval(moverEnemigos, 1000);
+
+        let boton = document.getElementById("escurridizo");
+        let botonSi = document.getElementById("botonSi");
+        let final = document.getElementById("final");
+
+        boton.addEventListener("mouseover", function() {
+            boton.style.top = Math.random() * window.innerHeight + "px";
+            boton.style.left = Math.random() * window.innerWidth + "px";
+        });
+
+        botonSi.addEventListener("click", function() {
+            mostrarAnimacionCorazones();
+            document.getElementById("nivel3").classList.add("hidden");
+            final.classList.remove("hidden");
+            actualizarMoi("I🥰, gracias por compartir conmigo tanto de ti y permitirme entrar en tu corazón. Por todo este tiempo juntos, y por cada momento feliz que comparto contigo:D Te amo<3");
+            startTetris();
+        });
+        boton.addEventListener("click", function() {
+            document.getElementById("nivel3").classList.add("hidden");
+            document.getElementById("tetris-container").classList.remove("hidden");
+            iniciarTetris();
+        });
+        function mostrarAnimacionCorazones() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * canvas.height;
+                    context.fillStyle = "red";
+                    context.fillText("❤️", x / 20, y / 20);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
