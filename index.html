@@ -11,6 +11,7 @@
         #moi { font-size: 30px; font-weight: bold; color:rgb(65, 208, 167); margin-top: 60px; }
         #game-container { margin-top: 50px; }
         .button { padding: 10px 20px; font-size: 18px; cursor: pointer; position: absolute; }
+        .button2 { padding: 10px 20px; font-size: 18px; cursor: pointer; margin-left: -100px; }
         #laberinto { border: 2px solid black; width: 400px; height: 300px; position: relative; margin: 20px auto; overflow: hidden; }
         .wall { position: absolute; background: black; }
         .enemy { position: absolute; background: red; width: 20px; height: 20px; border-radius: 50%; }
@@ -50,7 +51,6 @@
                 <!– Bordes -->
                 <div class="wall" style="top: 0px; left: 0px; width: 400px; height: 10px;"></div>
                 <div class="wall" style="top: 290px; left: 0px; width: 400px; height: 10px;"></div>
-                <div class="wall" style="top: 0px; left: 395px; width: 10px; height: 300px;"></div>
                 
                 <!– Horizontales -->
                 <div class="wall" style="top: 25px; left: 75px; width: 50px; height: 10px;"></div>
@@ -101,7 +101,7 @@
         <div id="nivel3" class="hidden">
             <p>Has llegado! Y ahora la pregunta más importante...  ¿Quieres ser mi Moi Valentín? 👉🏻👈🏻</q></p>
             <button id="escurridizo" class="button">No</button>
-            <button id="botonSi" class="button">Sí</button>
+            <button id="botonSi" class="button2">Sí</button>
         </div>
         
         <div id="tetris-container" class="hidden">
@@ -359,9 +359,6 @@
             startTetris();
         });
         boton.addEventListener("click", function() {
-            document.getElementById("nivel3").classList.add("hidden");
-            document.getElementById("tetris-container").classList.remove("hidden");
-            iniciarTetris();
         });
         function mostrarAnimacionCorazones() {
             for (let i = 0; i < 100; i++) {
